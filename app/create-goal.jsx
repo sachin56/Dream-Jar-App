@@ -19,10 +19,8 @@ const CreateGoalScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // This calls the 'category-and-icon' endpoint
         const response = await apiRequest('POST', 'category-and-icon');
         
-        // Assuming your Laravel API returns { data: { categories: [], icons: [] } }
         if (response.data) {
           setCategories(response.data.categories);
           setIcons(response.data.icons);
@@ -37,7 +35,6 @@ const CreateGoalScreen = () => {
   }, []);
 
   const handleAddGoal = async () => {
-    // --- Validation (remains the same) ---
     if (!goalName || !targetAmount || !selectedCategory || !selectedIcon) {
       Alert.alert('Missing Information', 'Please fill out all fields.');
       return;
@@ -47,7 +44,6 @@ const CreateGoalScreen = () => {
       return;
     }
 
-    // --- Prepare data for the API (use snake_case for Laravel) ---
     const newGoalPayload = {
       name: goalName,
       target_amount: Number(targetAmount),
@@ -59,10 +55,9 @@ const CreateGoalScreen = () => {
       // --- Call the API ---
       const response = await apiRequest('post', 'goal-store', newGoalPayload);
       
-      // Check for a successful creation status (usually 201)
       if (response) {
         Alert.alert('Success!', 'Your new goal has been created.');
-        router.back(); // Go back to the home screen
+        router.back(); 
       }
     } catch (error) {
       console.error("API Error:", error);

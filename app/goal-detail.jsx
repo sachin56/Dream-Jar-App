@@ -1,12 +1,11 @@
 import { Feather } from '@expo/vector-icons';
-import { useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState, useRef } from 'react';
-import { ActivityIndicator, Alert, Animated, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { apiRequest } from './utils/apiHandler';
 import { Audio } from 'expo-av';
 import * as Haptics from 'expo-haptics';
+import { useLocalSearchParams } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Alert, Animated, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { apiRequest } from './utils/apiHandler';
 
-// --- Animated Coin Component (CSS-Only) ---
 const Coin = ({ style }) => {
   const scale = useRef(new Animated.Value(0)).current;
   useEffect(() => {
@@ -23,7 +22,6 @@ const Coin = ({ style }) => {
   );
 };
 
-// --- Modern "Glassmorphism" Savings Jar (CSS-Only) ---
 const SavingsJar = ({ progress = 0 }) => {
   const jarHeight = 280;
   const jarWidth = 220;
@@ -58,12 +56,11 @@ const GoalDetailScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [sound, setSound] = useState();
 
-  // Preload the sound file for instant playback
   useEffect(() => {
     const loadSound = async () => {
       try {
         const { sound } = await Audio.Sound.createAsync(
-           require('../assets/sounds/coin.mp3') // Make sure you have this sound file
+           require('../assets/sounds/coin.mp3') 
         );
         setSound(sound);
       } catch (error) {
@@ -72,14 +69,13 @@ const GoalDetailScreen = () => {
     };
     loadSound();
 
-    return () => { // Unload sound when the component is removed
+    return () => { 
       if (sound) {
         sound.unloadAsync();
       }
     };
   }, []);
 
-  // Fetch goal details from the API
   useEffect(() => {
     if (id) {
       const fetchGoalDetails = async () => {
@@ -110,7 +106,6 @@ const GoalDetailScreen = () => {
       const response = await apiRequest('put', `goals/${currentGoal.id}/contribute`, payload);
       
       if (response.data) {
-        // Play sound and vibrate on success
         if (sound) {
           await sound.replayAsync();
         }
