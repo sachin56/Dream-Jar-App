@@ -4,11 +4,6 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 const SplashScreen = () => {
   return (
     <View style={styles.container}>
-      {/* Place your logo image here */}
-      {/* <Image
-        source={require('../assets/images/logo.png')}
-        style={styles.logo}
-      /> */}
       <Text style={styles.title}>Dream Jar</Text>
       <ActivityIndicator size="large" color="#FFFFFF" style={styles.spinner} />
     </View>
@@ -20,7 +15,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#34D399', // Matches the brand's primary color
+    backgroundColor: '#34D399', 
   },
   logo: {
     width: 150,
@@ -32,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    fontFamily: 'sans-serif-medium', // A nice default font
+    fontFamily: 'sans-serif-medium', 
   },
   spinner: {
     marginTop: 50,

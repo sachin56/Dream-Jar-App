@@ -4,7 +4,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { apiRequest } from '../utils/apiHandler'; // Make sure this path is correct
+import { apiRequest } from '../utils/apiHandler';
 
 const ProfileScreen = () => {
   const [name, setName] = useState('');
@@ -20,7 +20,6 @@ const ProfileScreen = () => {
 
         if (netInfoState.isConnected) {
           try {
-            // Online: Fetch fresh data from API and update local storage
             const [profileResponse, homeResponse] = await Promise.all([
               apiRequest('post', 'profile'),
               apiRequest('post', 'home'),
@@ -42,7 +41,6 @@ const ProfileScreen = () => {
             await loadOfflineData();
           }
         } else {
-          // Offline: Load from local storage
           Alert.alert("You are Offline", "Showing previously saved data.");
           await loadOfflineData();
         }

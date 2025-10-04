@@ -4,9 +4,8 @@ import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
-import { apiRequest } from "../utils/apiHandler"; // Make sure this path is correct
+import { apiRequest } from "../utils/apiHandler"; 
 
-// --- Reusable Donut Chart Component ---
 const DonutChart = ({ progress = 0, size = 48, strokeWidth = 5 }) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
