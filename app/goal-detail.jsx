@@ -197,7 +197,7 @@ const GoalDetailScreen = () => {
 
 const styles = StyleSheet.create({
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F0F4F8' },
-  container: { flex: 1, backgroundColor: '#F0F4F8' },
+  container: { flex: 1, backgroundColor: '#F0F4F8',paddingTop: 65 },
   scrollContent: { flexGrow: 1, alignItems: 'center', padding: 24, paddingBottom: 60 },
   header: { flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: 24 },
   iconContainer: { width: 48, height: 48, borderRadius: 24, backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', marginRight: 16, borderWidth: 1, borderColor: '#E2E8F0' },

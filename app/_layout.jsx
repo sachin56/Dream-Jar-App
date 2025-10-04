@@ -1,53 +1,40 @@
 import { Feather } from '@expo/vector-icons';
-import { Stack, router } from 'expo-router';
-import { TouchableOpacity } from 'react-native';
+import { Tabs } from 'expo-router';
 
-export default function RootLayout() {
+export default function AppLayout() {
   return (
-    <Stack
+    <Tabs
       screenOptions={{
-        // Consistent styles for all screens
-        headerStyle: { backgroundColor: '#F7F9FC' }, // Matches the light background
-        headerTintColor: '#1A202C', // Dark text for readability
-        headerTitleStyle: { fontWeight: 'bold' },
-        headerShadowVisible: false, // Removes the bottom border for a flat, modern look
+        headerShown: false, // Each screen will manage its own header
+        tabBarActiveTintColor: '#34D399',
+        tabBarInactiveTintColor: '#9CA3AF',
       }}
     >
-      <Stack.Screen
-        name="index"
-        options={{
-          // The Login screen should not have a header
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
+      <Tabs.Screen
         name="home"
         options={{
-          // Hide the default header to use the custom one inside the component
-          headerShown: false,
+          title: 'Home',
+          tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
         }}
       />
-      <Stack.Screen
+      <Tabs.Screen
         name="create-goal"
         options={{
-          title: 'Create a New Goal',
-          // Use presentation: 'modal' for a slide-up effect
-          presentation: 'modal',
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()} style={{ marginLeft: 10 }}>
-              <Feather name="x" size={24} color="#1A202C" />
-            </TouchableOpacity>
-          ),
+          title: 'Add Goal',
+          tabBarIcon: ({ color }) => <Feather name="plus-circle" size={24} color={color} />,
         }}
       />
-      <Stack.Screen
-        name="goal-detail"
+      <Tabs.Screen
+        name="profile"
         options={{
-          title: 'Goal Details',
-          // Customize back button for consistency
-          headerBackTitleVisible: false,
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Feather name="user" size={24} color={color} />,
         }}
       />
-    </Stack>
+      
+      {/* These screens below are part of the app but are hidden from the tab bar */}
+      <Tabs.Screen name="index" options={{ href: null }} />
+      <Tabs.Screen name="goal-detail" options={{ href: null }} />
+    </Tabs>
   );
 }

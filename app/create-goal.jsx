@@ -131,7 +131,7 @@ const CreateGoalScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8FAFC' },
+  container: { flex: 1, backgroundColor: '#F8FAFC',paddingTop: 90 },
   scrollContent: { flexGrow: 1, padding: 24 },
   headerTitle: { fontSize: 32, fontWeight: 'bold', color: '#1E293B' },
   subHeader: { fontSize: 16, color: '#64748B', marginTop: 8, marginBottom: 32 },

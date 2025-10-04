@@ -192,12 +192,14 @@ const HomeScreen = () => {
         />
       </ScrollView>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.fab}
         onPress={() => router.push('/create-goal')}
       >
         <Feather name="plus" size={28} color="#FFF" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+
+      
     </View>
   );
 };
