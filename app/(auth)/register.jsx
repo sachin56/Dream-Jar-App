@@ -2,41 +2,50 @@ import { Feather } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    ActivityIndicator,
+    Alert,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { useAuth } from '../_layout'; // ✅ CORRECTED IMPORT PATH
+import { useAuth } from '../_layout'; // Import from root layout
 import { apiRequest } from "../utils/apiHandler";
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn } = useAuth(); // This will now work correctly
+  const { signIn } = useAuth();
 
-  const handleLogin = async () => {
-    if (!email || !password) {
-      Alert.alert('Missing Information', 'Please enter both email and password.');
+  const handleRegister = async () => {
+    // Basic validation
+    if (!name || !email || !password) {
+      Alert.alert('Missing Information', 'Please fill out all fields.');
       return;
     }
+
     setIsLoading(true);
     try {
-      const response = await apiRequest("POST", "login", { email, password });
+      const payload = { name, email, password };
+      // Assume your API has a '/register' endpoint
+      const response = await apiRequest("POST", "register", payload);
+
       if (response?.token) {
+        // If registration is successful and returns a token, sign the user in
+        Alert.alert('Success!', 'Your account has been created.');
         signIn(response.token);
       } else {
-        Alert.alert('Login Failed', response?.message || 'Invalid credentials.');
+        Alert.alert('Registration Failed', response?.message || 'Could not create your account.');
       }
     } catch (error) {
-      Alert.alert('Login Error', error.response?.data?.message || 'An unexpected error occurred.');
+      // Handle potential validation errors from the server
+      const errorMessage = error.response?.data?.message || 'An unexpected error occurred.';
+      Alert.alert('Registration Error', errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -48,9 +57,19 @@ const LoginScreen = () => {
       style={styles.container}
     >
       <View style={styles.headerContainer}>
-        <Image source={require('../../assets/images/logo.png')} style={styles.logo} />
-        <Text style={styles.header}>Welcome Back!</Text>
-        <Text style={styles.subHeader}>Log in to continue tracking your goals.</Text>
+        <Text style={styles.header}>Create Account</Text>
+        <Text style={styles.subHeader}>Start your savings journey with Dream Jar.</Text>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Feather name="user" size={20} color="#94A3B8" style={styles.inputIcon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Full Name"
+          placeholderTextColor="#94A3B8"
+          value={name}
+          onChangeText={setName}
+        />
       </View>
 
       <View style={styles.inputContainer}>
@@ -79,31 +98,31 @@ const LoginScreen = () => {
       </View>
 
       <TouchableOpacity
-        style={styles.loginButton}
-        onPress={handleLogin}
+        style={styles.button}
+        onPress={handleRegister}
         disabled={isLoading}
       >
         {isLoading ? (
           <ActivityIndicator color="#FFF" />
         ) : (
-          <Text style={styles.loginButtonText}>Log In</Text>
+          <Text style={styles.buttonText}>Sign Up</Text>
         )}
       </TouchableOpacity>
-
-        <View style={styles.footer}>
-        <Text style={styles.footerText}>Don t have an account? </Text>
-        <Link href="/register" asChild>
+      
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Already have an account? </Text>
+        <Link href="/login" asChild>
           <TouchableOpacity>
-            <Text style={styles.linkText}>Sign Up</Text>
+            <Text style={styles.linkText}>Log In</Text>
           </TouchableOpacity>
         </Link>
       </View>
+
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  // Styles remain the same...
   container: {
     flex: 1,
     backgroundColor: '#F8FAFC',
@@ -113,11 +132,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     alignItems: 'center',
     marginBottom: 48,
-  },
-  logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 24,
   },
   header: {
     fontSize: 32,
@@ -149,7 +163,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#1E293B',
   },
-  loginButton: {
+  button: {
     backgroundColor: '#34D399',
     paddingVertical: 16,
     borderRadius: 12,
@@ -161,27 +175,26 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 6,
   },
-  loginButtonText: {
+  buttonText: {
     color: '#FFF',
     fontSize: 18,
     fontWeight: '600',
   },
-
-   footer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 24,
-    },
-    footerText: {
-        fontSize: 14,
-        color: '#64748B',
-    },
-    linkText: {
-        fontSize: 14,
-        color: '#34D399',
-        fontWeight: '600',
-    },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 24,
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#64748B',
+  },
+  linkText: {
+    fontSize: 14,
+    color: '#34D399',
+    fontWeight: '600',
+  },
 });
 
-export default LoginScreen;
+export default RegisterScreen;

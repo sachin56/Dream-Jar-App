@@ -60,7 +60,7 @@ const GoalDetailScreen = () => {
     const loadSound = async () => {
       try {
         const { sound } = await Audio.Sound.createAsync(
-           require('../assets/sounds/coin.mp3') 
+           require('../../assets/sounds/coin.mp3') 
         );
         setSound(sound);
       } catch (error) {
