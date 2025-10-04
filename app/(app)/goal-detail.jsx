@@ -4,7 +4,7 @@ import * as Haptics from 'expo-haptics';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Animated, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { apiRequest } from './utils/apiHandler';
+import { apiRequest } from '../utils/apiHandler';
 
 const Coin = ({ style }) => {
   const scale = useRef(new Animated.Value(0)).current;

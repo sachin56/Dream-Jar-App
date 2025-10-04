@@ -4,7 +4,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { apiRequest } from './utils/apiHandler'; // Make sure this path is correct
+import { apiRequest } from '../utils/apiHandler'; // Make sure this path is correct
 
 const ProfileScreen = () => {
   const [name, setName] = useState('');
